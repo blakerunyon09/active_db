@@ -1,15 +1,15 @@
-require('dotenv').config();
-const pg = require('pg')
-pg.defaults.ssl = {
-   require:true,
-   rejectUnauthorized:false
-}
+// require('dotenv').config();
+// const pg = require('pg')
+// pg.defaults.ssl = {
+//    require:true,
+//    rejectUnauthorized:false
+// }
 
 module.exports = {
 
   development: {
      client: 'pg',
-     connection: 'postgres:///users'
+     connection: 'postgres:///avid4_db'
   },
   production: {
    client: 'pg',
