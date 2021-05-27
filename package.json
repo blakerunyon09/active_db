@@ -4,7 +4,9 @@
   "description": "Active Database for Avid4 Adventure",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,12 @@
   },
   "homepage": "https://github.com/blakerunyon09/active_db#readme",
   "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.7"
+    "knex": "^0.95.6",
+    "nodemon": "^2.0.7",
+    "pg": "^8.6.0"
   }
 }
