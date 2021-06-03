@@ -3,7 +3,7 @@ const axios = require('axios').default;
 require('dotenv').config()
 
 // KNEX IMPORT
-const databaseConfig = require('./knexfile')[process.env.NODE_ENV || 'development']
+const databaseConfig = require('../knexfile')[process.env.NODE_ENV || 'development']
 const database = require('knex')(databaseConfig)
 
 router.get('/', (req, res) => {
@@ -19,26 +19,25 @@ router.get('/', (req, res) => {
   }
 
   axios.post( 'https://awapi.active.com/rest/camps-season-info', body )
-  .then(function (response) {
-    res.send(response.data);
+  .then(({ data }) => {
+    data.map(season => {
+        el = {
+          season_id: season.seasonId, 
+          sessions: season.sessionIds, 
+          start_date: JSON.stringify(season.firstDateTime), 
+          end_date: JSON.stringify(season.lastDateTime)
+        }
+      })
+    })
   })
+  .then(res.send("Success."))
   .catch(function (error) {
     res.send({error: error.data});
-  }); 
-  // axios.post(req.headers.endpoint,
-  //   JSON.parse(req.headers.body)
-  // ,{
-  //   headers: {
-  //     ...req.headers.headers
-  //   }
-  // })
-  // .then(function (response) {
-  //   res.send(response.data);
-  // })
-  // .catch(function (error) {
-  //   res.send({error: error.data});
-  // }); 
+}); 
 
+router.get('/seasons', (_, res) => {
+  database('seasons')
+  .then(seasons => res.send(seasons))
 })
 
 module.exports = router
