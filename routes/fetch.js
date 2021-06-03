@@ -1,5 +1,10 @@
 const router = require('express').Router()
 const axios = require('axios').default;
+require('dotenv').config()
+
+// KNEX IMPORT
+const databaseConfig = require('./knexfile')[process.env.NODE_ENV || 'development']
+const database = require('knex')(databaseConfig)
 
 router.get('/', (req, res) => {
 
