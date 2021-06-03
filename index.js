@@ -5,7 +5,7 @@ const app = express()
 const PORT = process.env.PORT || 8080
 
 // KNEX IMPORT
-const databaseConfig = require('../knexfile')[process.env.NODE_ENV || 'development']
+const databaseConfig = require('./knexfile')[process.env.NODE_ENV || 'development']
 const database = require('knex')(databaseConfig)
 
 // JSON MIDDLEWARE
