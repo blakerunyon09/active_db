@@ -20,20 +20,17 @@ router.get('/', (req, res) => {
 
   axios.post( 'https://awapi.active.com/rest/camps-season-info', body )
   .then(({ data }) => {
-    data.map(season => {
+    ar = data.map(season => {
         el = {
-          season_id: season.seasonId, 
-          sessions: season.sessionIds, 
-          start_date: JSON.stringify(season.firstDateTime), 
-          end_date: JSON.stringify(season.lastDateTime)
+          ...season
         }
       })
+    res.send(ar)
     })
-  })
-  .then(res.send("Success."))
   .catch(function (error) {
     res.send({error: error.data});
-}); 
+  })
+})
 
 router.get('/seasons', (_, res) => {
   database('seasons')
