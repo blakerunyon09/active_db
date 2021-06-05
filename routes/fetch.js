@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
           ...season
         }
       })
-    res.send(ar)
+    res.send(ar) 
     })
   .catch(function (error) {
     res.send({error: error.data});
