@@ -20,7 +20,7 @@ router.get('/seasons/fetch', (req, res) => {
 
   axios.post( 'https://awapi.active.com/rest/camps-season-info', body )
   .then(({ data }) => {
-    ar = []
+    seasonsArray = []
     data.map(season => {
         season = {
           season_id: season.seasonId,
@@ -29,13 +29,13 @@ router.get('/seasons/fetch', (req, res) => {
           end_date: JSON.stringify(season.lastDateTime),
           current_season: season.firstDateTime.year == 2021
         }
-        ar.push(season)
+        seasonsArray.push(season)
       })
     database('seasons')
-    .insert(ar)
+    .insert(seasonsArray)
     .onConflict('season_id')
     .merge()
-    .then(r => res.send("It Ran."))
+    .then(r => res.status(201).send({msg: "Success"}))
   })
   .catch((err) => { console.log(err); throw err })
 })
