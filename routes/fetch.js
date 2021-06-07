@@ -32,7 +32,9 @@ router.get('/', (req, res) => {
       })
     database('seasons')
     .insert(ar)
-    .then(r => res.send(r))
+    .onConflict('season_id')
+    .merge()
+    .then(r => res.send("It Ran."))
     })
   .catch(function (error) {
     res.send({error: error.data});
