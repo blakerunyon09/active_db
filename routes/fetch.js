@@ -22,13 +22,12 @@ router.get('/seasons/fetch', (req, res) => {
   .then(({ data }) => {
     ar = []
     data.map(season => {
-      // let current_season = season.start_date.year == 2021
         season = {
           season_id: season.seasonId,
           sessions: JSON.stringify(season.sessionIds),
           start_date: JSON.stringify(season.firstDateTime),
           end_date: JSON.stringify(season.lastDateTime),
-          current_season: false
+          current_season: season.firstDateTime.year == 2021
         }
         ar.push(season)
       })
@@ -37,10 +36,8 @@ router.get('/seasons/fetch', (req, res) => {
     .onConflict('season_id')
     .merge()
     .then(r => res.send("It Ran."))
-    })
-  .catch(function (error) {
-    res.send({error: error.data});
   })
+  .catch((err) => { console.log(err); throw err })
 })
 
 router.get('/seasons', (_, res) => {
