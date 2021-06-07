@@ -6,10 +6,11 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex('seasons').insert([
       {
-        "season_id": "100",
+        "season_id": 100,
         "sessions": "[\"51760042\",\"51782040\"]",
         "start_date": "{\"zoneId\":\"UTC\",\"language\":\"en\",\"country\":\"US\",\"variant\":\"\",\"day\":1,\"month\":6,\"year\":2021,\"hour\":6,\"minutes\":0,\"seconds\":0,\"nanoOfSecond\":0}",
-        "end_date": "{\"zoneId\":\"UTC\",\"language\":\"en\",\"country\":\"US\",\"variant\":\"\",\"day\":16,\"month\":8,\"year\":2021,\"hour\":5,\"minutes\":59,\"seconds\":0,\"nanoOfSecond\":0}"
+        "end_date": "{\"zoneId\":\"UTC\",\"language\":\"en\",\"country\":\"US\",\"variant\":\"\",\"day\":16,\"month\":8,\"year\":2021,\"hour\":5,\"minutes\":59,\"seconds\":0,\"nanoOfSecond\":0}",
+        "current_season": true
       },
       // {
       //     "season_id": "2955535",

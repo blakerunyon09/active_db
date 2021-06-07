@@ -6,7 +6,7 @@ require('dotenv').config()
 const databaseConfig = require('../knexfile')[process.env.NODE_ENV || 'development']
 const database = require('knex')(databaseConfig)
 
-router.get('/', (req, res) => {
+router.get('/seasons/fetch', (req, res) => {
 
   body = {
     "appToken": "Px7U0We8xt9MKovt8kzYioy2KyfGvbv9Expp4GMagwUBcPVpvoI04nKxTSnC+A8j",
@@ -22,11 +22,13 @@ router.get('/', (req, res) => {
   .then(({ data }) => {
     ar = []
     data.map(season => {
+      // let current_season = season.start_date.year == 2021
         season = {
           season_id: season.seasonId,
           sessions: JSON.stringify(season.sessionIds),
           start_date: JSON.stringify(season.firstDateTime),
-          end_date: JSON.stringify(season.lastDateTime)
+          end_date: JSON.stringify(season.lastDateTime),
+          current_season: false
         }
         ar.push(season)
       })
