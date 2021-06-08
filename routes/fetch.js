@@ -9,11 +9,11 @@ const database = require('knex')(databaseConfig)
 router.get('/seasons/fetch', (req, res) => {
 
   body = {
-    "appToken": "Px7U0We8xt9MKovt8kzYioy2KyfGvbv9Expp4GMagwUBcPVpvoI04nKxTSnC+A8j",
+    "appToken": process.env.ACTIVE_APPTOKEN,
     "request": {
-        "applicationName": "Avid4AdventureNew",
-        "userName": "blake@avid4.com",
-        "password": "Gigglys5",
+        "applicationName": process.env.ACTIVE_APPNAME,
+        "userName": process.env.ACTIVE_USERNAME,
+        "password": process.env.ACTIVE_PASSWORD,
         "seasonIds": []
     }
   }
