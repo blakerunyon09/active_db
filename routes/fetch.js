@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const axios = require('axios').default;
+const body = require('./requests/active_requests').body
 require('dotenv').config()
 
 // KNEX IMPORT
@@ -7,17 +8,6 @@ const databaseConfig = require('../knexfile')[process.env.NODE_ENV || 'developme
 const database = require('knex')(databaseConfig)
 
 router.get('/seasons/fetch', (req, res) => {
-
-  body = {
-    "appToken": process.env.ACTIVE_APPTOKEN,
-    "request": {
-        "applicationName": process.env.ACTIVE_APPNAME,
-        "userName": process.env.ACTIVE_USERNAME,
-        "password": process.env.ACTIVE_PASSWORD,
-        "seasonIds": []
-    }
-  }
-
   axios.post( 'https://awapi.active.com/rest/camps-season-info', body )
   .then(({ data }) => {
     seasonsArray = []
