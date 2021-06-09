@@ -7,7 +7,7 @@ require('dotenv').config()
 const databaseConfig = require('../knexfile')[process.env.NODE_ENV || 'development']
 const database = require('knex')(databaseConfig)
 
-router.get('/seasons/fetch', (req, res) => {
+router.get('/seasons/fetch', (_, res) => {
   axios.post( 'https://awapi.active.com/rest/camps-season-info', body )
   .then(({ data }) => {
     seasonsArray = []
