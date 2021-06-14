@@ -1,4 +1,4 @@
-let body = {
+const body = {
   "appToken": process.env.ACTIVE_APPTOKEN,
   "request": {
       "applicationName": process.env.ACTIVE_APPNAME,
