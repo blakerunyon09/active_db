@@ -21,6 +21,7 @@ router.get('/sessions/fetch', (_, res) => {
     for(let i = 0; i < sessMemory.length; i += 1000 ){
       allSessions.push(sessMemory.slice(0,999))
     }
+    
     res.send(allSessions)
   })
   .catch((err) => { console.log(err); throw err })
