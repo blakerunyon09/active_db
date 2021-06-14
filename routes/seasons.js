@@ -20,7 +20,7 @@ router.get('/seasons/fetch', (req, res) => {
           current_season: season.firstDateTime.year == 2021
         }
         seasonsArray.push(season)
-      })
+      }) 
     database('seasons')
     .insert(seasonsArray)
     .onConflict('season_id')
