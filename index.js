@@ -9,10 +9,12 @@ app.use(express.json())
 app.use(cors())
 
 // IMPORT ROUTES
-const fetch = require('./routes/fetch')
+const seasons = require('./routes/seasons')
+const sessions = require('./routes/sessions')
 
 // ROUTES
-app.use('/api', fetch)
+app.use('/api', seasons)
+app.use('/api', sessions)
 
 // BOOT SERVER
 app.listen(PORT, ()=> {console.log(`Serving on PORT ${PORT}`)})
