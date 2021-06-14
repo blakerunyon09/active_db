@@ -8,10 +8,22 @@ const databaseConfig = require('../knexfile')[process.env.NODE_ENV || 'developme
 const database = require('knex')(databaseConfig)
 
 router.get('/sessions/fetch', (_, res) => {
-    database('seasons')
-    .select('sessions')
-    .then(r => res.send(r))
-    .catch((err) => { console.log(err); throw err })
+  let sessMemory = []
+  const allSessions = []
+  let count = 0
+  database('seasons')
+  .select('sessions')
+  .then(sessions => {
+    sessions.map(session => {
+    sessMemory.push(session.sessions)
+    })
+    sessMemory = sessMemory.flat()
+    for(let i = 0; i < sessMemory.length; i += 1000 ){
+      allSessions.push(sessMemory.slice(0,999))
+    }
+    res.send(allSessions)
+  })
+  .catch((err) => { console.log(err); throw err })
 })
 
 router.get('/sessions', (_, res) => {
