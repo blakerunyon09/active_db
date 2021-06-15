@@ -10,7 +10,6 @@ const database = require('knex')(databaseConfig)
 router.get('/sessions/fetch', (_, res) => {
   let sessMemory = []
   const allSessions = []
-  let count = 0
   database('seasons')
   .select('sessions')
   .then(sessions => {
@@ -18,12 +17,14 @@ router.get('/sessions/fetch', (_, res) => {
     sessMemory.push(session.sessions)
     })
     sessMemory = sessMemory.flat()
-    for(let i = 0; i < sessMemory.length; i += 1000 ){
-      allSessions.push(sessMemory.slice(0,999))
+    for(let i = 0; i < sessMemory.length; i += 2000 ){
+      allSessions.push(sessMemory.slice(0,1999))
     }
-    
     res.send(allSessions)
   })
+  .then(
+    axios.post( 'https://awapi.active.com/rest/camps-season-info', body )
+  )
   .catch((err) => { console.log(err); throw err })
 })
 

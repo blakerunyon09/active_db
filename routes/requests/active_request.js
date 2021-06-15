@@ -3,8 +3,7 @@ const body = {
   "request": {
       "applicationName": process.env.ACTIVE_APPNAME,
       "userName": process.env.ACTIVE_USERNAME,
-      "password": process.env.ACTIVE_PASSWORD,
-      "seasonIds": []
+      "password": process.env.ACTIVE_PASSWORD
   }
 }
 

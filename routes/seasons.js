@@ -8,7 +8,7 @@ const databaseConfig = require('../knexfile')[process.env.NODE_ENV || 'developme
 const database = require('knex')(databaseConfig)
 
 router.get('/seasons/fetch', (req, res) => {
-  axios.post( 'https://awapi.active.com/rest/camps-season-info', body )
+  axios.post( 'https://awapi.active.com/rest/camps-season-info', {...body, ...body.request.seasonIds = []} )
   .then(({ data }) => {
     seasonsArray = []
     data.map(season => {
