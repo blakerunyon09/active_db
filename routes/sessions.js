@@ -46,7 +46,7 @@ router.get('/sessions/fetch', (_, res) => {
       // .merge()
       // .then(console.log(sessionsArray))
   })
-  .then(res.send())
+  .then(res.send(allSessions))
   .catch((err) => { console.log(err); throw err })
 })
 
