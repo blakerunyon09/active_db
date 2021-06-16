@@ -42,8 +42,8 @@ router.get('/sessions/fetch', (_, res) => {
       }
       database('sessions')
       .insert(sessionsArray)
-      .onConflict('session_id')
-      .merge()
+      // .onConflict('session_id')
+      // .merge()
       // .then(console.log(sessionsArray))
   })
   .then(res.send())
