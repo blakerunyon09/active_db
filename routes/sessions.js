@@ -35,18 +35,19 @@ router.get('/sessions/fetch', (_, res) => {
                 end_date: JSON.stringify(session.endDate),
                 availability: session.availability
               }
-              sessionsArray.push(session)
+              sessionsArray.push("Cha.")
             }) 
           // .then(r => res.status(201).send({msg: "Success"}))
         })
       }
       database('sessions')
       .insert(sessionsArray)
+      console.log(sessionsArray)
       // .onConflict('session_id')
       // .merge()
       // .then(console.log(sessionsArray))
   })
-  .then(res.send(allSessions))
+  .then(res.send("Run."))
   .catch((err) => { console.log(err); throw err })
 })
 
