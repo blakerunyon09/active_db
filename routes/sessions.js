@@ -8,24 +8,22 @@ const databaseConfig = require('../knexfile')[process.env.NODE_ENV || 'developme
 const database = require('knex')(databaseConfig)
 
 router.get('/sessions/fetch', (_, res) => {
-  let sessMemory = []
-  const allSessions = []
+  const groupedSessions = []
   database('seasons')
   .select('sessions')
-  .then(sessions => {
-    sessions.map(session => {
-    sessMemory.push(session.sessions)
-    })
-    sessMemory = sessMemory.flat()
-    for(let i = 0; i < sessMemory.length; i += 2000 ){
-      allSessions.push(sessMemory.slice(i,i + 1999))
+  .then(seasons => {
+    let sessions = seasons.map(season => {
+      return [...season.sessions]
+    }).flat()
+    for(let i = 0; i < sessions.length; i += 2000 ){
+      groupedSessions.push(sessions.slice(i,i + 1999))
     }
-    // res.send(allSessions)
+    console.log(groupedSessions)
   })
   .then(_ => {
     let = sessionsArray = []
-    for(let j = 0; j < allSessions.length; j++){
-        axios.post( 'https://awapi.active.com/rest/camps-session-info', {...body, ...body.request.sessionIds = allSessions[j]} )
+    for(let j = 0; j < groupedSessions.length; j++){
+        axios.post( 'https://awapi.active.com/rest/camps-session-info', {...body, ...body.request.sessionIds = groupedSessions[j]} )
         .then(({data}) => {
           data.map(session => {
               session = {
@@ -42,7 +40,6 @@ router.get('/sessions/fetch', (_, res) => {
       }
       database('sessions')
       .insert(sessionsArray)
-      console.log(sessionsArray)
       // .onConflict('session_id')
       // .merge()
       // .then(console.log(sessionsArray))
