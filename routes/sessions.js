@@ -18,7 +18,6 @@ router.get('/sessions/fetch', (_, res) => {
     for(let i = 0; i < sessions.length; i += 2000 ){
       groupedSessions.push(sessions.slice(i,i + 1999))
     }
-    console.log(groupedSessions)
   })
   .then(_ => {
     let = sessionsArray = []
@@ -26,22 +25,21 @@ router.get('/sessions/fetch', (_, res) => {
         axios.post( 'https://awapi.active.com/rest/camps-session-info', {...body, ...body.request.sessionIds = groupedSessions[j]} )
         .then(({data}) => {
           data.map(session => {
-              session = {
-                session_id: session.seasonId,
+              el = {
+                session_id: session.sessionId,
                 session_name: session.name,
                 start_date: JSON.stringify(session.startDate),
                 end_date: JSON.stringify(session.endDate),
                 availability: session.availability
               }
-              sessionsArray.push("Cha.")
-            }) 
-          // .then(r => res.status(201).send({msg: "Success"}))
+              sessionsArray.push(el)
+            })
         })
       }
       database('sessions')
       .insert(sessionsArray)
-      // .onConflict('session_id')
-      // .merge()
+      .onConflict('session_id')
+      .merge()
       // .then(console.log(sessionsArray))
   })
   .then(res.send("Run."))
