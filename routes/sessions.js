@@ -9,6 +9,7 @@ const database = require('knex')(databaseConfig)
 
 router.get('/sessions/fetch', (_, res) => {
   const groupedSessions = []
+  let sessionsArray = []
   database('seasons')
   .select('sessions')
   .then(seasons => {
@@ -20,12 +21,11 @@ router.get('/sessions/fetch', (_, res) => {
     }
   })
   .then(_ => {
-    let = sessionsArray = []
     for(let j = 0; j < groupedSessions.length; j++){
         axios.post( 'https://awapi.active.com/rest/camps-session-info', {...body, ...body.request.sessionIds = groupedSessions[j]} )
         .then(({data}) => {
           data.map(session => {
-              el = {
+              let el = {
                 session_id: session.sessionId,
                 session_name: session.name,
                 start_date: JSON.stringify(session.startDate),
@@ -34,15 +34,10 @@ router.get('/sessions/fetch', (_, res) => {
               }
               sessionsArray.push(el)
             })
+            console.log(sessionsArray[0])
         })
       }
-      database('sessions')
-      .insert(sessionsArray)
-      .onConflict('session_id')
-      .merge()
-      // .then(console.log(sessionsArray))
   })
-  .then(res.send("Run."))
   .catch((err) => { console.log(err); throw err })
 })
 
