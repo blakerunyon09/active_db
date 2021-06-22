@@ -5,7 +5,6 @@
 // }
 
 module.exports = {
-
   development: {
      client: 'pg',
      connection: 'postgres:///avid4_db'
@@ -20,5 +19,4 @@ module.exports = {
       directory: './seeds' 
    }
   }
-
 }
