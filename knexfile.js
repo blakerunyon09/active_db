@@ -1,9 +1,8 @@
-// require('dotenv').config();
-// const pg = require('pg')
-// pg.defaults.ssl = {
-//    require:true,
-//    rejectUnauthorized:false
-// }
+const pg = require('pg')
+pg.defaults.ssl = {
+   require:true,
+   rejectUnauthorized:false
+}
 
 module.exports = {
 

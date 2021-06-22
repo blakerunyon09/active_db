@@ -21,8 +21,10 @@ router.get('/sessions/fetch', (_, res) => {
     }
   })
   .then(_ => {
-    for(let j = 0; j < groupedSessions.length; j++){
-        axios.post( 'https://awapi.active.com/rest/camps-session-info', {...body, ...body.request.sessionIds = groupedSessions[j]} )
+    (async function looper(){
+      console.log("Loading: 0%")
+      for(let j = 0; j < groupedSessions.length; j++){
+        await axios.post( 'https://awapi.active.com/rest/camps-session-info', {...body, ...body.request.sessionIds = groupedSessions[j]} )
         .then(({data}) => {
           data.map(session => {
               let el = {
@@ -34,9 +36,15 @@ router.get('/sessions/fetch', (_, res) => {
               }
               sessionsArray.push(el)
             })
-            console.log(sessionsArray[0])
+            console.log(groupedSessions.length === (j+1) ? "Complete" : `Loading: ${(j + 1)/groupedSessions.length * 100}%`)
         })
       }
+      database('sessions')
+      .insert(sessionsArray)
+      .onConflict('session_id')
+      .merge()
+      .then(r => res.status(201).send({msg: "Success"}))
+    })()
   })
   .catch((err) => { console.log(err); throw err })
 })
