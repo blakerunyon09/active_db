@@ -25,7 +25,7 @@ router.get('/seasons/fetch', (req, res) => {
     .insert(seasonsArray)
     .onConflict('season_id')
     .merge()
-    .then(r => res.status(201).send({msg: "Success"}))
+    .then(_ => res.status(201).send({msg: "Success"}))
   })
   .catch((err) => { console.log(err); throw err })
 })
