@@ -33,6 +33,7 @@ router.get('/seasons/fetch', (req, res) => {
 router.get('/seasons', (_, res) => {
   database('seasons')
   .then(seasons => res.send(seasons))
+  .catch((err) => { console.log(err); throw err })
 })
 
 module.exports = router
