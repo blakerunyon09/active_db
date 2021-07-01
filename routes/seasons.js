@@ -40,7 +40,7 @@ router.get('/seasons', (_, res) => {
 
 router.get('/seasons-test', (_, res) => {
   axios.post( 'https://awapi.active.com/rest/camps-season-info', {...body, ...body.request.seasonIds = []} )
-  .then(r => res.send({msg: r}))
+  .then(({data}) => res.send(data))
   .catch(console.log("You done messed up A A RON"))
 })
 
