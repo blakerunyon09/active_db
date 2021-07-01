@@ -7,7 +7,7 @@ require('dotenv').config()
 const databaseConfig = require('../knexfile')[process.env.NODE_ENV || 'development']
 const database = require('knex')(databaseConfig)
 
-router.get('/seasons/fetch', (req, res) => {
+router.get('/seasons/fetch', (_, res) => {
   axios.post( 'https://awapi.active.com/rest/camps-season-info', {...body, ...body.request.seasonIds = []} )
   .then(({ data }) => {
     seasonsArray = []
@@ -36,6 +36,12 @@ router.get('/seasons', (_, res) => {
   database('seasons')
   .then(seasons => res.send(seasons))
   .catch((err) => { console.log(err); throw err })
+})
+
+router.get('/seasons-test', (_, res) => {
+  axios.post( 'https://awapi.active.com/rest/camps-season-info', {...body, ...body.request.seasonIds = []} )
+  .then(r => res.send(r))
+  .catch(console.log("You done messed up A A RON"))
 })
 
 module.exports = router
