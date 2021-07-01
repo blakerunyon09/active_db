@@ -16,5 +16,9 @@ const sessions = require('./routes/sessions')
 app.use('/api', seasons)
 app.use('/api', sessions)
 
+app.get('/', (_, res) => {
+  res.send("Cha.")
+})
+
 // BOOT SERVER
 app.listen(PORT, ()=> {console.log(`Serving on PORT ${PORT}`)})
